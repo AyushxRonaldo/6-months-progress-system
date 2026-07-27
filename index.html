@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Ascend - 180 Day Comeback Challenge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Home Page -->
+        <div id="home-page" class="page active">
+            <div class="home-header">
+                <h1 class="app-title">Project Ascend</h1>
+                <p class="app-subtitle">180 Day Comeback Challenge</p>
+                <div class="day-counter">
+                    <span id="day-display">Day 1 / 180</span>
+                </div>
+            </div>
+
+            <div class="leaderboard-container">
+                <h2>Leaderboard</h2>
+                <div id="leaderboard" class="leaderboard">
+                    <!-- Player cards will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page">
+            <button class="back-button" onclick="app.showHomePage()">← Back</button>
+            
+            <div class="dashboard-header">
+                <div class="player-info">
+                    <div class="profile-icon" id="profile-icon">👤</div>
+                    <div class="player-details">
+                        <h1 id="player-name">Player Name</h1>
+                        <div class="rank-badge" id="rank-badge">Rank #1</div>
+                    </div>
+                </div>
+                <div class="player-stats">
+                    <div class="stat-box">
+                        <span class="stat-value" id="progress-percent">0%</span>
+                        <span class="stat-label">Progress</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="xp-value">0</span>
+                        <span class="stat-label">XP</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="level-value">1</span>
+                        <span class="stat-label">Level</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="streak-value">0</span>
+                        <span class="stat-label">Streak</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <!-- Navigation Tabs -->
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="tasks">Tasks</button>
+                    <button class="tab-button" data-tab="stats">Statistics</button>
+                    <button class="tab-button" data-tab="calendar">Calendar</button>
+                    <button class="tab-button" data-tab="achievements">Achievements</button>
+                </div>
+
+                <!-- Tasks Tab -->
+                <div id="tasks-tab" class="tab-content active">
+                    <div class="tasks-header">
+                        <h3>Today's Tasks</h3>
+                        <button class="btn btn-primary" onclick="app.openAddTaskModal()">+ Add Task</button>
+                    </div>
+                    <div id="tasks-list" class="tasks-list">
+                        <!-- Tasks will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Statistics Tab -->
+                <div id="stats-tab" class="tab-content">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h4>Completion Rate</h4>
+                            <p id="completion-rate">0%</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Total Tasks</h4>
+                            <p id="total-tasks">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Completed</h4>
+                            <p id="completed-tasks">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Partial</h4>
+                            <p id="partial-tasks">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Failed</h4>
+                            <p id="failed-tasks">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Longest Streak</h4>
+                            <p id="longest-streak">0 days</p>
+                        </div>
+                    </div>
+                    <div class="charts-container">
+                        <div class="chart-placeholder">Daily Progress Chart (Coming Soon)</div>
+                        <div class="chart-placeholder">XP Graph (Coming Soon)</div>
+                    </div>
+                </div>
+
+                <!-- Calendar Tab -->
+                <div id="calendar-tab" class="tab-content">
+                    <div id="calendar" class="calendar">
+                        <!-- Calendar grid will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Achievements Tab -->
+                <div id="achievements-tab" class="tab-content">
+                    <div id="achievements" class="achievements-grid">
+                        <!-- Achievements will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Task Modal -->
+    <div id="add-task-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="app.closeAddTaskModal()">&times;</span>
+            <h2>Add New Task</h2>
+            <input type="text" id="task-name-input" placeholder="Task name" class="modal-input">
+            <button class="btn btn-primary" onclick="app.addTask()">Add Task</button>
+            <button class="btn btn-secondary" onclick="app.closeAddTaskModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Edit Task Modal -->
+    <div id="edit-task-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="app.closeEditTaskModal()">&times;</span>
+            <h2>Edit Task</h2>
+            <input type="text" id="task-edit-input" placeholder="Task name" class="modal-input">
+            <button class="btn btn-primary" onclick="app.saveEditTask()">Save</button>
+            <button class="btn btn-danger" onclick="app.deleteTask()">Delete</button>
+            <button class="btn btn-secondary" onclick="app.closeEditTaskModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script src="storage.js"></script>
+    <script src="players.js"></script>
+    <script src="tasks.js"></script>
+    <script src="leaderboard.js"></script>
+    <script src="dashboard.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
